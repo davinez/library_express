@@ -1,0 +1,33 @@
+<h1>{{title}}: {{book.title}}</h1>
+<p>ISBN: {{book.isbn}}</p>
+
+{{#if instance_list_length}}
+  <p><strong>Delete the following books instances before attempting to delete
+      this book.</strong></p>
+
+  <div style='margin-left: 20px; margin-top: 20px'>
+    <h4>Copies</h4>
+    <dl>
+      {{#each bookInstance_list}}
+        <dt><a href={{this.url}}>{{../book.title}}</a></dt>
+        <dd>{{this.imprint}}</dd>
+      {{/each}}
+    </dl>
+  </div>
+{{else}}
+
+  <p>Do you really want to delete this book?</p>
+  <form method='POST' action=''>
+    <div class='form-group'>
+      <input
+        id='bookId'
+        class='form-control'
+        type='hidden'
+        name='bookId'
+        required='true'
+        value={{book._id}}
+      />
+    </div>
+    <button class='btn btn-primary' type='submit'>Delete</button>
+  </form>
+{{/if}}

@@ -1,0 +1,96 @@
+<h1>{{title}}</h1>
+
+<form method='POST' action=''>
+  <div class='form-group'>
+    {{#if author}}
+      <label for='first_name'>First Name:</label>
+      <input
+        id='first_name'
+        class='form-control'
+        type='text'
+        placeholder='First name (Richard)'
+        name='first_name'
+        required='true'
+        value={{author.first_name}}
+      />
+      <label for='family_name'>Family Name:</label>
+      <input
+        id='family_name'
+        class='form-control'
+        type='text'
+        placeholder='Family name (surname)'
+        name='family_name'
+        required='true'
+        value={{author.family_name}}
+      />
+    {{else}}
+      <label for='first_name'>First Name:</label>
+      <input
+        id='first_name'
+        class='form-control'
+        type='text'
+        placeholder='First name (Richard)'
+        name='first_name'
+        required='true'
+        value=''
+      />
+      <label for='family_name'>Family Name:</label>
+      <input
+        id='family_name'
+        class='form-control'
+        type='text'
+        placeholder='Family name (surname)'
+        name='family_name'
+        required='true'
+        value=''
+      />
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    {{#if author}}
+      <label for='date_of_birth'>Date of birth:</label>
+      <input
+        id='date_of_birth'
+        class='form-control'
+        type='date'
+        name='date_of_birth'
+        value={{author.date_of_birth_JSDate}}
+      />
+      <label for='date_of_death'>Date of death:</label>
+      <input
+        id='date_of_death'
+        class='form-control'
+        type='date'
+        name='date_of_death'
+        value={{author.date_of_death_JSDate}}
+      />
+    {{else}}
+      <label for='date_of_birth'>Date of birth:</label>
+      <input
+        id='date_of_birth'
+        class='form-control'
+        type='date'
+        name='date_of_birth'
+        value=''
+      />
+      <label for='date_of_death'>Date of death:</label>
+      <input
+        id='date_of_death'
+        class='form-control'
+        type='date'
+        name='date_of_death'
+        value=''
+      />
+    {{/if}}
+  </div>
+  <button class='btn btn-primary' type='submit'>Submit</button>
+</form>
+
+{{#if errors.length}}
+  <ul>
+    {{#each errors}}
+      <li>{{this.msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}

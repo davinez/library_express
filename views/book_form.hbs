@@ -1,0 +1,80 @@
+<h1>{{title}}</h1>
+
+<form method='POST' action=''>
+  <div class="form-group">
+    {{#if book}}
+    <label for='title'>Title:</label>
+    <input id="title" class="form-control" type='text' placeholder='Name of book' name='title' required='true'
+      value='{{book.title}}'>
+    {{else}}
+    <label for='title'>Title:</label>
+    <input id="title" class="form-control" type='text' placeholder='Name of book' name='title' required='true'
+      value=''>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for='author'>Author:</label>
+    <select id="author" class="form-control" type='select' placeholder='Select author' name='author' required='true'>
+      {{#each authors}}
+      
+      {{! Handle GET form, where book.author is an object, and POST form, where it is a string.}}
+      {{#ifEqualsString this._id ../book.author._id}}
+      <option value={{this._id}} selected>{{this.name}}</option>
+      {{else}}
+      <option value={{this._id}}>{{this.name}}</option>
+      {{/ifEqualsString}}
+          
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="summary">Summary:</label>
+    {{#if book}}
+    <textarea id="summary" class="form-control" type='textarea' placeholder='Summary' name='summary'
+      required='true'>{{book.summary}}</textarea>
+    {{else}}
+    <textarea id="summary" class="form-control" type='textarea' placeholder='Summary' name='summary'
+      required='true'></textarea>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label for="isbn">ISBN:</label>
+    {{#if book}}
+    <input id="isbn" class="form-control" type='text' placeholder='ISBN13' name='isbn' value={{book.isbn}}
+      required='true'>
+    {{else}}
+    <input id="isbn" class="form-control" type='text' placeholder='ISBN13' name='isbn' value='' required='true'>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label>Genre:</label>
+    <div>
+      {{#each genres}}
+      <div style='display: inline; padding-right: 10px;'>
+        {{#if this.checked}}
+        <input class="checkbox-input" type='checkbox' name='genre' id={{this._id}} value={{this._id}} checked>
+        <label for={{this._id}}>{{this.name}}</label>
+        {{else}}
+        <input class="checkbox-input" type='checkbox' name='genre' id={{this._id}} value={{this._id}}>
+        <label for={{this._id}}>{{this.name}}</label>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+
+</form>
+
+
+{{#if errors.length}}
+<ul>
+  {{#each errors}}
+  <li>{{this.msg}}</li>
+  {{/each}}
+</ul>
+{{/if}}

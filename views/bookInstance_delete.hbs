@@ -1,0 +1,17 @@
+<h1>{{title}}: {{bookinstance.book.title}}</h1>
+<p>ID: {{bookinstance._id}}</p>
+
+<p>Do you really want to delete this Book Copy?</p>
+<form method='POST' action=''>
+  <div class='form-group'>
+    <input
+      id='bookinstanceID'
+      class='form-control'
+      type='hidden'
+      name='bookinstanceID'
+      required='true'
+      value={{bookinstance._id}}
+    />
+  </div>
+  <button class='btn btn-primary' type='submit'>Delete</button>
+</form>

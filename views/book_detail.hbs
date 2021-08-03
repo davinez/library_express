@@ -1,0 +1,44 @@
+<h1>Title: {{book.title}}</h1>
+
+<p><strong>Author:</strong><a
+    href={{book.author.url}}
+  >{{book.author.name}}</a></p>
+<p><strong>Summary:</strong>{{book.summary}}</p>
+<p><strong>ISBN:</strong>{{book.summary}}</p>
+<p><strong>Genre:</strong></p>
+{{#each book.genre}}
+  <a href={{this.url}}>{{this.name}}
+    {{#ifLower @index ../genreLength}}
+      ,
+    {{/ifLower}}
+  </a>
+
+{{/each}}
+<div style='margin-left:20px;margin-top:20px'>
+  <h4>Copies</h4>
+
+  {{#each book_instances}}
+    <hr />
+    {{#ifEquals this.status 'Available'}}
+      <p class='text-success'>{{this.status}}</p>
+    {{else}}
+      {{#ifEquals this.status 'Maintenance'}}
+        <p class='text-danger'>{{this.status}}</p>
+      {{else}}
+        <p class='text-warning'>{{this.status}}</p>
+      {{/ifEquals}}
+    {{/ifEquals}}
+    <p><strong>Imprint:</strong>{{this.imprint}}</p>
+    {{#elseCompare this.status 'Available'}}
+      <p><strong>Due back:</strong>{{this.due_back}}</p>
+    {{/elseCompare}}
+    <p><strong>Id:</strong><a href={{this.url}}>{{this._id}}</a></p>
+  {{else}}
+    <p>There are no copies of this book in the library.</p>
+  {{/each}}
+</div>
+
+<hr />
+
+<p><a href='{{book.url}}/delete'>Delete Book</a></p>
+<p><a href='{{book.url}}/update'>Update Book</a></p>

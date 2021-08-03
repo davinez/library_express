@@ -1,0 +1,60 @@
+<h1>{{title}}</h1>
+
+<form method='POST' action=''>
+  <div class='form-group'>
+    <label for='book'>Book:</label>
+    <select id='book' class='form-control' type='select' placeholder='Select book' name='book' required='true'>
+      {{#each book_list}}
+
+      {{#ifEqualsString this._id ../bookinstance.book}}
+      <option value={{this._id}} selected>{{this.title}}</option>
+      {{else}}
+      <option value={{this._id}}>{{this.title}}</option>
+      {{/ifEqualsString}}
+      
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='form-group'>
+    {{#if bookinstance}}
+    <label for='imprint'>Imprint:</label>
+    <input id='imprint' class='form-control' type='text' placeholder='Publisher and date information' name='imprint'
+      required='true' value='{{bookinstance.imprint}}' />
+    {{else}}
+    <label for='imprint'>Imprint:</label>
+    <input id='imprint' class='form-control' type='text' placeholder='Publisher and date information' name='imprint'
+      required='true' value='' />
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    {{#if bookinstance}}
+    <label for='due_back'>Date when book available:</label>
+    <input id='due_back' class='form-control' type='date' name='due_back' value={{bookinstance.due_back_JSDate}} />
+    {{else}}
+    <label for='due_back'>Date when book available:</label>
+    <input id='due_back' class='form-control' type='date' name='due_back' value='' />
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    <label for='status'>Status:</label>
+    <select id='status' class='form-control' type='select' placeholder='Select status' name='status' required='true'>
+      <option value='Maintenance'>Maintenance</option>
+      <option value='Available'>Available</option>
+      <option value='Loaned'>Loaned</option>
+      <option value='Reserved'>Reserved</option>
+    </select>
+  </div>
+
+  <button class='btn btn-primary' type='submit'>Submit</button>
+</form>
+
+{{#if errors.length}}
+<ul>
+  {{#each errors}}
+  <li>{{this.msg}}</li>
+  {{/each}}
+</ul>
+{{/if}}
