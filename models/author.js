@@ -19,15 +19,15 @@ AuthorSchema.virtual('name').get(function () {
 AuthorSchema.virtual('lifespan').get(function () {
   let lifetimeString = '';
   if (this.date_of_birth) {
-    lifetimeString = DateTime.fromJSDate(this.date_of_birth).toLocaleString(
-      DateTime.DATE_MED
-    );
+    lifetimeString = DateTime.fromJSDate(this.date_of_birth)
+      .toUTC()
+      .toFormat('MMMM dd, yyyy');
   }
   lifetimeString += ' - ';
   if (this.date_of_death) {
-    lifetimeString += DateTime.fromJSDate(this.date_of_death).toLocaleString(
-      DateTime.DATE_MED
-    );
+    lifetimeString += DateTime.fromJSDate(this.date_of_death)
+      .toUTC()
+      .toFormat('MMMM dd, yyyy');
   }
   return lifetimeString;
 });
